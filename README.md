@@ -1,0 +1,1 @@
+This is an application for splitting up expenses and rent with your roomies!
