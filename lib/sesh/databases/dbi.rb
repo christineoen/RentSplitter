@@ -16,24 +16,26 @@ module ShowMeMoney
           );]
       @db.exec(users)
 
-      # bills = %q[
-      #   CREATE TABLE IF NOT EXISTS bills(
-      #     id SERIAL,
-      #     name text, 
-      #     charge integer, 
-      #     month text,
-      #     PRIMARY KEY ( id )
-      #     );]
-      # @db.exec(bills)
+      expenses = %q[
+        CREATE TABLE IF NOT EXISTS expenses(
+          id SERIAL,
+          type text, 
+          amount integer, 
+          paid_by integer REFERENCES users(id),
+          month text,
+          year integer,
+          PRIMARY KEY ( id )
+          );]
+      @db.exec(expenses)
 
-      # rent = %q[
-      #   CREATE TABLE IF NOT EXISTS rent(
-      #     id SERIAL,
-      #     monthly_bill integer, 
-
-      #     PRIMARY KEY ( id )
-      #     );]
-      # @db.exec(rent)
+      domicile = %q[
+        CREATE TABLE IF NOT EXISTS domicile(
+          id SERIAL,
+          rent integer, 
+          tenant integer REFERENCES users(id),
+          PRIMARY KEY ( id )
+          );]
+      @db.exec(domicile)
 
       # TODO: Figure out rent and bills logic!!
 
@@ -129,6 +131,38 @@ module ShowMeMoney
       SQL
       @db.exec(select)
     end
+
+    def build_expense(data)
+      ShowMeMoney::Expense.new(data)
+    end
+
+    def add_expense(type, amount, paid_by, month, year)
+      result = @db.exec_params(%q[
+        INSERT INTO expenses (type, amount, paid_by, month, year)
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING *;
+        ], [type, amount, paid_by, month, year])
+
+      build_expense(result.first)
+    end
+
+
+
+    def build_domicile(data)
+      ShowMeMoney::Domicile.new(data)
+    end
+
+
+    def add_domicile(rent, tenant)
+      result = @db.exec_params(%q[
+        INSERT INTO domicile (rent, tenant)
+        VALUES ($1, $2)
+        RETURNING *;
+        ], [rent, tenant])
+      
+      build_domicile(result.first)
+    end
+
   end
 
   def self.dbi
