@@ -4,8 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rent Splitter</title>
-    <link rel="stylesheet" href="../public/css/foundation.css" />
-    <script src="../public/js/vendor/modernizr.js"></script>
+    <link rel="stylesheet" href="/foundation/css/foundation.css" />
+    <link rel="stylesheet" href="/foundation/css/foundation.min.css" />
+    <link rel="stylesheet" href="/foundation/css/normalize.css" />
+    <script src="/foundation/js/vendor/modernizr.js"></script>
      <style type="text/css">
         * {
 /*          border: 1px solid red;*/
@@ -26,22 +28,64 @@
   <div class="large-12 columns">2014</div>
 </div>
 
-
 <div class="row">
-  <div class="large-1 columns">Jan</div>
-  <div class="large-1 columns">Feb</div>
-  <div class="large-1 columns">Mar</div>
-  <div class="large-1 columns">Apr</div>
-  <div class="large-1 columns">May</div>
-  <div class="large-1 columns">Jun</div>
-  <div class="large-1 columns">Jul</div>
-  <div class="large-1 columns">Aug</div>
-  <div class="large-1 columns">Sep</div>
-  <div class="large-1 columns">Oct</div>
-  <div class="large-1 columns">Nov</div>
-  <div class="large-1 columns">Dec</div>
+<div class="large-12 medium-6 small-3 small-centered columns">
+<ul class="tabs" data-tab>
+  <li class="tab-title active"><a href="#panel2-1">JAN</a></li>
+  <li class="tab-title"><a href="#panel2-2">FEB</a></li>
+  <li class="tab-title "><a href="#panel2-3">MAR</a></li>
+  <li class="tab-title"><a href="#panel2-4">APR</a></li>
+  <li class="tab-title"><a href="#panel2-5">MAY</a></li>
+  <li class="tab-title"><a href="#panel2-6">JUN</a></li>
+  <li class="tab-title"><a href="#panel2-7">JUL</a></li>
+  <li class="tab-title"><a href="#panel2-8">AUG</a></li>
+  <li class="tab-title"><a href="#panel2-9">SEP</a></li>
+  <li class="tab-title"><a href="#panel2-10">OCT</a></li>
+  <li class="tab-title"><a href="#panel2-11">NOV</a></li>
+  <li class="tab-title"><a href="#panel2-12">DEC</a></li>
+</ul>
+<div class="tabs-content">
+  <div class="content active" id="panel2-1">
+    <p>JAN</p>
+  </div>
+  <div class="content" id="panel2-2">
+    <p>FEB</p>
+  </div>
+  <div class="content" id="panel2-3">
+    <p>MAR</p>
+  </div>
+  <div class="content" id="panel2-4">
+    <p>APR</p>
+  </div>
+  <div class="content" id="panel2-5">
+    <p>MAY</p>
+  </div>
+  <div class="content" id="panel2-6">
+    <p>JUN</p>
+  </div>
+  <div class="content" id="panel2-7">
+    <p>JUL</p>
+  </div>
+  <div class="content" id="panel2-8">
+    <p>AUG</p>
+  </div>
+  <div class="content" id="panel2-9">
+    <p>SEP</p>
+  </div>
+  <div class="content" id="panel2-10">
+    <p>OCT</p>
+  </div>
+  <div class="content" id="panel2-11">
+    <p>NOV</p>
+  </div>
+  <div class="content" id="panel2-12">
+    <p>DEC</p>
+  </div>
+</div>
+</div>
 </div>
 
+<div class="large-6 columns">
 
 <table>
   <thead>
@@ -69,6 +113,8 @@
     </tr>
   </tbody>
 </table>
+
+</div>
 
 <table>
   <thead>
@@ -103,10 +149,14 @@
 
 
 
-    <script src="js/vendor/jquery.js"></script>
-    <script src="js/foundation.min.js"></script>
+    <script src="/foundation/js/vendor/jquery.js"></script>
+    <script src="/foundation/js/foundation.min.js"></script>
     <script>
       $(document).foundation();
+      $(document).ready(function() {
+        var tableWidth = $('ul.tabs').width();
+        $("ul.tabs li").css('width', tableWidth/12);
+      });
     </script>
   </body>
 </html>
