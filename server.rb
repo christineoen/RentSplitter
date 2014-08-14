@@ -19,30 +19,27 @@ before do
 end
 
 get '/' do
-  @home = 'js/home.js'
-  if session['sesh_example']
-    @user = RPS.dbi.get_player_by_username(session['sesh_example'])
-    redirect to '/matches'
+  if session['rent_session']
+    @user = ShowMeMoney.dbi.get_user_by_id(session['rent_session'])
+    redirect to '/main'
   end
   erb :index
 end
 
-get '/signup' do
-  @home = 'js/home.js'
-  if session['sesh_example']
-    redirect to '/'
-  else
-    erb :signup
-  end
-end
+# get '/signup' do
+#   if session['rent_session']
+#     redirect to '/'
+#   else
+#     erb :signup
+#   end
+# end
 
 post '/signin' do
   sign_in = RPS::SignIn.run(params)
   if sign_in[:success?]
-    session['sesh_example'] = sign_in[:session_id]
-    redirect to '/matches'
+    session['rent_session'] = sign_in[:session_id]
+    redirect to '/main'
   else
-    @home = 'js/home.js'
     flash[:alert] = sign_in[:error]
     erb :index
   end
@@ -51,15 +48,23 @@ end
 post '/signup' do
   sign_up = RPS::SignUp.run(params)
   if sign_up[:success?]
-    session['sesh_example'] = sign_up[:session_id]
-    redirect to '/matches'
+    session['rent_session'] = sign_up[:session_id]
+    redirect to '/main'
   else
-    @home = 'js/home.js'
     flash[:alert] = sign_up[:error]
     erb :index
   end 
 
 end
+
+get '/main' do
+  #get all expenses for domicile for current month and year selected
+  #get domicile info for current month and year selected
+
+end
+
+
+
 
 get '/signout' do
   session.clear

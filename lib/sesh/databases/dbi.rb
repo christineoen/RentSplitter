@@ -9,31 +9,37 @@ module ShowMeMoney
 
       users = %q[
         CREATE TABLE IF NOT EXISTS users(
-          id SERIAL,
+          user_id SERIAL,
           username text,
+          display_name text,
           password text,
-          PRIMARY KEY (id)
+          rent integer,
+          domicile_id integer REFERENCES domicile(domicile_id),
+          PRIMARY KEY ( user_id )
           );]
       @db.exec(users)
 
+      ########bug for domicile_id??#######
       expenses = %q[
         CREATE TABLE IF NOT EXISTS expenses(
-          id SERIAL,
+          expense_id SERIAL,
           type text, 
           amount integer, 
-          paid_by integer REFERENCES users(id),
-          month text,
+          paid_by integer REFERENCES users(user_id),
+          month integer,
           year integer,
-          PRIMARY KEY ( id )
+          domicile_id integer REFERENCES domicile(domicile_id), 
+          PRIMARY KEY ( expense_id )
           );]
       @db.exec(expenses)
 
       domicile = %q[
         CREATE TABLE IF NOT EXISTS domicile(
-          id SERIAL,
-          rent integer, 
-          tenant integer REFERENCES users(id),
-          PRIMARY KEY ( id )
+          domicile_id SERIAL,
+          rent integer,
+          month integer,
+          year integer,
+          PRIMARY KEY ( domicile_id )
           );]
       @db.exec(domicile)
 
@@ -43,25 +49,33 @@ module ShowMeMoney
 
     end
 
+    #### USERS ####
+
+    def build_user(data)
+      RPS::User.new(data['username'], data['password'])
+    end
+
     def persist_user(user)
-      @db.exec(%q[
+      @db.exec_params(%q[
         INSERT INTO users (username, password)
         VALUES ($1, $2);
       ], [user.username, user.password_digest])
     end
 
-    def create_user(username, password)
-      create = <<-SQL
-      INSERT INTO users (username, password)
-      VALUES ('#{username}', '#{password}');
-      SQL
-      @db.exec(create)
+    def get_user_id(user)
+      result = @db.exec_params(%q[
+        SELECT user_id from users
+        WHERE username = $1;
+        ], [user.username])
+
+      return result
     end
 
     def username_exists?(username)
-      result = @db.exec(%Q[
-        SELECT * FROM users WHERE username = '#{username}';
-      ])
+      result = @db.exec(%q[
+        SELECT * FROM users
+        WHERE username = $1;
+      ], [username])
 
       if result.count > 0
         true
@@ -70,10 +84,11 @@ module ShowMeMoney
       end
     end
 
-    def get_player_by_id(id)
-      result = @db.exec(%Q[
-        SELECT * FROM users WHERE id = #{id};
-      ])
+    def get_user_by_id(user_id)
+      result = @db.exec(%q[
+        SELECT * FROM users 
+        WHERE user_id = $1;
+      ],[user_id])
 
       user_data = result.first
       
@@ -84,14 +99,11 @@ module ShowMeMoney
       end
     end
 
-    def build_user(data)
-      RPS::User.new(data['username'], data['password'])
-    end
-
-    def get_player_by_username(username)
-      result = @db.exec(%Q[
-        SELECT * FROM users WHERE username = '#{username}';
-      ])
+    def get_user_by_username(username)
+      result = @db.exec(%q[
+        SELECT * FROM users 
+        WHERE username = $1;
+      ],[username])
 
       user_data = result.first
       
@@ -102,35 +114,8 @@ module ShowMeMoney
       end
     end
 
-    def get_player_id(username)
-      result = @db.exec(%Q[
-        SELECT * FROM users WHERE username = '#{username}';
-      ])
 
-      user_data = result.first
-      
-      if user_data
-        user_data['id']
-      else
-        nil
-      end
-    end
-
-    def update_password(password, user_id)
-      update = <<-SQL
-      UPDATE users SET
-      password = '#{password}'
-      WHERE id = #{user_id};
-      SQL
-      @db.exec(update)
-    end
-
-    def get_all_users(current_users_id);
-      select = <<-SQL
-      SELECT * FROM users WHERE id != '#{current_users_id}';
-      SQL
-      @db.exec(select)
-    end
+    #### EXPENSES ####
 
     def build_expense(data)
       ShowMeMoney::Expense.new(data)
@@ -146,7 +131,18 @@ module ShowMeMoney
       build_expense(result.first)
     end
 
+    def get_all_expenses(year, month, domicile)
+      result = @db.exec(%q[
+        SELECT * FROM expenses
+        WHERE year = $1
+        AND month = $2
+        AND domicile_id = $3;
+        ],[year, month, domicile.domicile_id])
 
+      result.map {|row| build_expense(row)}
+    end
+
+    #### DOMICILE ####
 
     def build_domicile(data)
       ShowMeMoney::Domicile.new(data)
@@ -161,6 +157,24 @@ module ShowMeMoney
         ], [rent, tenant])
       
       build_domicile(result.first)
+    end
+
+    def get_domicile_id(user)
+      result = @db.exec(%q[
+        SELECT domicile_id FROM users
+        WHERE user_id = $1
+        ],[user.user_id])
+
+      return result
+    end
+
+    def get_domicile_users(domicile_id)
+      result = @db.exec_params(%q[
+        SELECT # FROM users
+        WHERE domicile_id = $1;
+        ],[domicile_id])
+      
+      result.map {|row| build_user(row)}
     end
 
   end
