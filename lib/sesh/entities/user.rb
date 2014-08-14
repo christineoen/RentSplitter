@@ -2,13 +2,11 @@ require 'digest/sha1'
 
 module ShowMeMoney
   class User
-    attr_reader :username, :password_digest, :wins, :losses
+    attr_reader :username, :password_digest
 
-    def initialize(username, password_digest=nil)
-      @username = username
-      @password_digest = password_digest
-      @wins = 0
-      @losses = 0
+    def initialize(data = {})
+      @username = data[:username]
+      @password_digest = data[:password_digest]
     end
 
     def update_password(password)

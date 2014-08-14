@@ -1,10 +1,10 @@
 module ShowMeMoney
-  class Rent
-    attr_reader :amount, :roomie
+  class Domicile
+    attr_reader :rent, :tenant
 
     def initialize(data = {})
-      @amount = data[:amount]
-      @roomie = data[:roomie]
+      @rent = data[:rent]
+      @tenant = data[:tenant]
     end
 
 
