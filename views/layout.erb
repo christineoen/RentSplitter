@@ -1,3 +1,162 @@
-<%= erb :_header %>
-<%= yield %>
-<%= erb :_footer %>
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rent Splitter</title>
+    <link rel="stylesheet" href="/foundation/css/foundation.css" />
+    <link rel="stylesheet" href="/foundation/css/foundation.min.css" />
+    <link rel="stylesheet" href="/foundation/css/normalize.css" />
+    <script src="/foundation/js/vendor/modernizr.js"></script>
+     <style type="text/css">
+        * {
+/*          border: 1px solid red;*/
+          -moz-box-sizing: border-box;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+        }
+    </style>
+  </head>
+  <body>
+     <!-- body goes here -->
+
+<div class="row">
+  <div class="large-12 columns">RentSplitter</div>
+</div>
+
+<div class="row">
+  <div class="large-12 columns">2014</div>
+</div>
+
+<div class="row">
+<div class="large-12 medium-6 small-3 small-centered columns">
+<ul class="tabs" data-tab>
+  <li class="tab-title active"><a href="#panel2-1">JAN</a></li>
+  <li class="tab-title"><a href="#panel2-2">FEB</a></li>
+  <li class="tab-title "><a href="#panel2-3">MAR</a></li>
+  <li class="tab-title"><a href="#panel2-4">APR</a></li>
+  <li class="tab-title"><a href="#panel2-5">MAY</a></li>
+  <li class="tab-title"><a href="#panel2-6">JUN</a></li>
+  <li class="tab-title"><a href="#panel2-7">JUL</a></li>
+  <li class="tab-title"><a href="#panel2-8">AUG</a></li>
+  <li class="tab-title"><a href="#panel2-9">SEP</a></li>
+  <li class="tab-title"><a href="#panel2-10">OCT</a></li>
+  <li class="tab-title"><a href="#panel2-11">NOV</a></li>
+  <li class="tab-title"><a href="#panel2-12">DEC</a></li>
+</ul>
+<div class="tabs-content">
+  <div class="content active" id="panel2-1">
+    <p>JAN</p>
+  </div>
+  <div class="content" id="panel2-2">
+    <p>FEB</p>
+  </div>
+  <div class="content" id="panel2-3">
+    <p>MAR</p>
+  </div>
+  <div class="content" id="panel2-4">
+    <p>APR</p>
+  </div>
+  <div class="content" id="panel2-5">
+    <p>MAY</p>
+  </div>
+  <div class="content" id="panel2-6">
+    <p>JUN</p>
+  </div>
+  <div class="content" id="panel2-7">
+    <p>JUL</p>
+  </div>
+  <div class="content" id="panel2-8">
+    <p>AUG</p>
+  </div>
+  <div class="content" id="panel2-9">
+    <p>SEP</p>
+  </div>
+  <div class="content" id="panel2-10">
+    <p>OCT</p>
+  </div>
+  <div class="content" id="panel2-11">
+    <p>NOV</p>
+  </div>
+  <div class="content" id="panel2-12">
+    <p>DEC</p>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="large-6 columns">
+
+<table>
+  <thead>
+    <tr>
+      <th width="150">Bill</th>
+      <th width="150">Amt</th>
+      <th width="150">Paid By</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Content Goes Here</td>
+      <td>Content Goes Here</td>
+      <td>Content Goes Here</td>
+    </tr>
+    <tr>
+      <td>Content Goes Here</td>
+      <td>Content Goes Here</td>
+      <td>Content Goes Here</td>
+    </tr>
+    <tr>
+      <td>Content Goes Here</td>
+      <td>Content Goes Here</td>
+      <td>Content Goes Here</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th width="150">Roomie</th>
+      <th width="150">Rent</th>
+      <th width="150">Split</th>
+      <th width="150">Due</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Content Goes Here</td>
+      <td>Content Goes Here</td>
+      <td>Content Goes Here</td>
+      <td>Content Goes Here</td>
+    </tr>
+    <tr>
+      <td>Content Goes Here</td>
+      <td>Content Goes Here</td>
+      <td>Content Goes Here</td>
+      <td>Content Goes Here</td>
+    </tr>
+    <tr>
+      <td>Content Goes Here</td>
+      <td>Content Goes Here</td>
+      <td>Content Goes Here</td>
+      <td>Content Goes Here</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+    <script src="/foundation/js/vendor/jquery.js"></script>
+    <script src="/foundation/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      $(document).ready(function() {
+        var tableWidth = $('ul.tabs').width();
+        $("ul.tabs li").css('width', tableWidth/12);
+      });
+    </script>
+  </body>
+</html>
