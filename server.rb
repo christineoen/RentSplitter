@@ -2,7 +2,7 @@
 require 'sinatra'
 require "sinatra/json"
 require 'rack-flash'
-require_relative 'lib/rps_app.rb'
+require_relative 'lib/rentSplitter.rb'
 
 
 set :bind, '0.0.0.0' # Vagrant fix
