@@ -12,7 +12,7 @@ module ShowMeMoney
       end
 
       user = ShowMeMoney::User.new(params)
-      binding.pry
+      # binding.pry
       user.update_password(params['password'])
       ShowMeMoney.dbi.persist_user(user)
       user_id = ShowMeMoney.dbi.get_user_id(user)

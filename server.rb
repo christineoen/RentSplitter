@@ -60,7 +60,7 @@ post '/signup' do
 end
 
 get '/main/:year/:month' do
-
+  @js = 'js/home.js'
   domicile_id = ShowMeMoney.dbi.get_domicile_id(session['rent_session'])
   @current_expenses = ShowMeMoney.dbi.get_all_expenses(domicile_id, params['year'], params['month'])
 

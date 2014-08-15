@@ -1,7 +1,29 @@
+    
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="active"><a href="#home">2014</a></li>
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#home">2014</a></li>
+        <li><a href="#profile">2013</a></li>
+        <li><a href="#messages">2012</a></li>
+        <li><a href="#messages">2012</a></li>
+        <li><a href="#messages">2012</a></li>
+        <li><a href="#messages">2012</a></li>
+        <li><a href="#messages">2012</a></li>
+        <li><a href="#messages">2012</a></li>
+        <li><a href="#messages">2012</a></li>
+        <li><a href="#messages">2012</a></li>
+        <li><a href="#messages">2012</a></li>
+        <li><a href="#messages">2012</a></li>
+        <li><a href="#messages">2012</a></li>
+        <li><a href="#messages">2012</a></li>
+      </ul>
+    <li><a href="#profile">2013</a></li>
+    <li><a href="#messages">2012</a></li>
+  </ul>
     <div class="container">
       <div class='row'>
         <div class="col-md-4">
-          <table class="table"> 
+          <table class="table table-striped"> 
             <thead>
               <tr>
                 <th width="150">Bill</th>
@@ -11,25 +33,25 @@
             </thead>
             <tbody>
               <tr>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
+                <td>Cable</td>
+                <td>$50.00</td>
+                <td>Chris</td>
               </tr>
               <tr>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
+                <td>Electricity</td>
+                <td>$90.00</td>
+                <td>Erin</td>
               </tr>
               <tr>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
+                <td>Water</td>
+                <td>$10.00</td>
+                <td>Bob</td>
               </tr>
             </tbody>
           </table>
         </div>
         <div class="col-md-6 col-md-offset-1">
-          <table class="table"> 
+          <table class="table table-striped"> 
             <thead>
               <tr>
                 <th width="150">Roomie</th>
@@ -40,34 +62,50 @@
             </thead>
             <tbody>
               <tr>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
+                <td>Chris</td>
+                <td>900.00</td>
+                <td>(-50)</td>
+                <td>850.00</td>
               </tr>
               <tr>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
+                <td>Erin</td>
+                <td>1100.00</td>
+                <td>100.00</td>
+                <td>1100</td>
               </tr>
               <tr>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
-                <td>Content Goes Here</td>
+                <td>Bob</td>
+                <td>1000</td>
+                <td>50</td>
+                <td>1050</td>
               </tr>
-              
             </tbody>
           </table>
         </div>  
       </div>
     </div>
 
+    <script type="text/javascript">
+      $('#home').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+      })
+      $('#profile').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+      })
+      $('#messages').click(function (e) {
+        e.preventDefault()
+        $(this).tab('show')
+      })
+    </script>
+
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+
+    <script src="<%= @root %>js/bootstrap.min.js"></script>
+
   </body>
 </html>
