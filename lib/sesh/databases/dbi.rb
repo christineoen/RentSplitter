@@ -49,7 +49,7 @@ module ShowMeMoney
     #### USERS ####
 
     def build_user(data)
-      RPS::User.new(data['username'], data['password'])
+      ShowMeMoney::User.new(data['username'], data['password'])
     end
 
     def persist_user(user)
