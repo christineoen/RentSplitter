@@ -35,7 +35,7 @@ end
 # end
 
 post '/signin' do
-  sign_in = RPS::SignIn.run(params)
+  sign_in = ShowMeMoney::SignIn.run(params)
   if sign_in[:success?]
     session['rent_session'] = sign_in[:session_id]
     redirect to '/main'
@@ -46,7 +46,7 @@ post '/signin' do
 end
 
 post '/signup' do
-  sign_up = RPS::SignUp.run(params)
+  sign_up = ShowMeMoney::SignUp.run(params)
   if sign_up[:success?]
     session['rent_session'] = sign_up[:session_id]
     redirect to '/main'

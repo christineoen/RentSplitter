@@ -7,6 +7,13 @@ module ShowMeMoney
     def initialize
       @db = PG.connect(host: 'localhost', dbname: 'show_me_the_money')
 
+      domicile = %q[
+        CREATE TABLE IF NOT EXISTS domicile(
+          domicile_id SERIAL,
+          PRIMARY KEY (domicile_id)
+          );]
+      @db.exec(domicile)
+
       users = %q[
         CREATE TABLE IF NOT EXISTS users(
           user_id SERIAL,
@@ -32,18 +39,7 @@ module ShowMeMoney
           PRIMARY KEY ( expense_id )
           );]
       @db.exec(expenses)
-
-      domicile = %q[
-        CREATE TABLE IF NOT EXISTS domicile(
-          domicile_id SERIAL,
-          rent integer,
-          month integer,
-          year integer,
-          PRIMARY KEY ( domicile_id )
-          );]
-      @db.exec(domicile)
-
-      # TODO: Figure out rent and bills logic!!
+            # TODO: Figure out rent and bills logic!!
 
       # Uncomment after sh*t figured out!
 
@@ -52,7 +48,7 @@ module ShowMeMoney
     #### USERS ####
 
     def build_user(data)
-      RPS::User.new(data['username'], data['password'])
+      ShowMeMoney::User.new(data['username'], data['password'])
     end
 
     def persist_user(user)
