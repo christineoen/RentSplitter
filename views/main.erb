@@ -1,22 +1,9 @@
 <nav class="navbar navbar-inverse" role="navigation">
   <ul class="nav nav-pills col-md-10 col-md-offset-2">
-    <li><a href="/main/2014/1">jan</a></li>
-    <li><a href="/main/2014/2">feb</a></li>
-    <li><a href="/main/2014/3">mar</a></li>
-    <li><a href="/main/2014/4">apr</a></li>
-    <li><a href="/main/2014/5">may</a></li>
-    <li><a href="/main/2014/6">jun</a></li>
-    <li><a href="/main/2014/7">jul</a></li>
-    <li><a href="/main/2014/8">aug</a></li>
-    <li><a href="/main/2014/9">sep</a></li>
-    <li><a href="/main/2014/10">oct</a></li>
-    <li><a href="/main/2014/11">nov</a></li>
-    <li><a href="/main/2014/12">dec</a></li>
-  </ul>
 </nav>
 
 
-<!--   <ul class="nav nav-pills col-md-10 col-md-offset-2">
+  <ul class="nav nav-pills col-md-10 col-md-offset-2">
     <li><a href="/main/2014/1">JAN</a></li>
     <li><a href="/main/2014/2">FEB</a></li>
     <li><a href="/main/2014/3">MAR</a></li>
@@ -29,7 +16,7 @@
     <li><a href="/main/2014/10">OCT</a></li>
     <li><a href="/main/2014/11">NOV</a></li>
     <li><a href="/main/2014/12">DEC</a></li>
-  </ul> -->
+  </ul>
 
     <div class="container">
       <div class='row'>
@@ -43,24 +30,17 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Cable</td>
-                <td>$50.00</td>
-                <td>Chris</td>
-              </tr>
-              <tr>
-                <td>Electricity</td>
-                <td>$90.00</td>
-                <td>Erin</td>
-              </tr>
-              <tr>
-                <td>Water</td>
-                <td>$10.00</td>
-                <td>Bob</td>
-              </tr>
+              <% @current_expenses.each do |exp| %>
+                <tr>
+                  <td><%= exp.type %></td>
+                  <td><%= exp.amount %></td>
+                  <td><%= exp.get_display_name %></td>
+                <% end %>
+                </tr>
             </tbody>
           </table>
         </div>
+        
         <div class="col-md-6 col-md-offset-2">
           <table class="table table-hover"> 
             <thead>
@@ -72,23 +52,13 @@
               </tr>
             </thead>
             <tbody>
+              <% @domicile_users.each do |user| %>
               <tr>
-                <td>Chris</td>
-                <td>900.00</td>
-                <td>(-50)</td>
-                <td>850.00</td>
-              </tr>
-              <tr>
-                <td>Erin</td>
-                <td>1100.00</td>
-                <td>100.00</td>
-                <td>1100</td>
-              </tr>
-              <tr>
-                <td>Bob</td>
-                <td>1000</td>
-                <td>50</td>
-                <td>1050</td>
+                <td><%= user.display_name %></td>
+                <td><%= user.rent %></td>
+                <td><%= @reallocated_domicile[user.user_id] %></td>
+                <td><%= user.rent.to_i + @reallocated_domicile[user.user_id].to_i %></td>
+                <% end %>
               </tr>
             </tbody>
           </table>

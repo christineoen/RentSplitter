@@ -61,7 +61,11 @@ end
 
 get '/main/:year/:month' do
   domicile_id = ShowMeMoney.dbi.get_domicile_id(session['rent_session'])
-  @current_expenses = ShowMeMoney.dbi.get_all_expenses(domicile_id, params['year'], params['month'])
+  @current_expenses = ShowMeMoney.dbi.get_all_expenses(domicile_id['domicile_id'].to_i, params['year'], params['month'])
+
+  @domicile_users = ShowMeMoney.dbi.get_domicile_users(domicile_id['domicile_id'].to_i)
+  domicile_object = ShowMeMoney.dbi.get_domicile_object(domicile_id['domicile_id'].to_i)
+  @reallocated_domicile = domicile_object.reallocate(params['year'], params['month'])
 
   erb :main
 end

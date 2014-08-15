@@ -11,7 +11,9 @@ module ShowMeMoney
       @domicile_id = data['domicile_id']
     end
 
+    def get_display_name
+      ShowMeMoney.dbi.get_display_name(paid_by)
+    end
 
   end
-
 end

@@ -119,6 +119,14 @@ module ShowMeMoney
       end
     end
 
+    def get_display_name(user_id)
+      result = @db.exec_params(%q[
+        SELECT display_name FROM users
+        WHERE user_id = $1;
+        ], [user_id])
+
+      return result.first['display_name']
+    end
 
     #### EXPENSES ####
 
@@ -163,6 +171,15 @@ module ShowMeMoney
       build_domicile(result.first)
     end
 
+    def get_domicile_object(domicile_id)
+      result = @db.exec_params(%q[
+        SELECT * FROM domicile
+        WHERE domicile_id = $1;
+        ], [domicile_id])
+
+      build_domicile(result.first)
+    end
+
     def get_domicile_id(user_id)
       result = @db.exec(%q[
         SELECT domicile_id FROM users
@@ -174,7 +191,7 @@ module ShowMeMoney
 
     def get_domicile_users(domicile_id)
       result = @db.exec_params(%q[
-        SELECT # FROM users
+        SELECT * FROM users
         WHERE domicile_id = $1;
         ],[domicile_id])
       
