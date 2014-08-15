@@ -20,6 +20,10 @@ body {
 html, body {
   height: 100%;
 }
+/*.nav {
+  margin: 0 auto;
+  float:none;
+}*/
 
 #wrap {
   min-height: 100%;

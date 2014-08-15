@@ -7,7 +7,7 @@ module ShowMeMoney
     def initialize(data = {})
       @username = data['username']
       @display_name = data['display_name']
-      @password_digest = data['password_digest']
+      @password_digest = data['password']
       @user_id = data['user_id']
       @domicile_id = data['domicile_id']
       @rent = data['rent']

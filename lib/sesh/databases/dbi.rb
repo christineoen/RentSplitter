@@ -49,7 +49,7 @@ module ShowMeMoney
     #### USERS ####
 
     def build_user(data)
-      ShowMeMoney::User.new(data['username'], data['display_name'], data['password'])
+      ShowMeMoney::User.new(data)
     end
 
     def persist_user(user)
@@ -57,6 +57,14 @@ module ShowMeMoney
         INSERT INTO users (username, display_name, password)
         VALUES ($1, $2, $3);
       ], [user.username, user.display_name, user.password_digest])
+    end
+
+    def update_domicile_id(user)  
+      @db.exec_params(%q[
+        UPDATE users
+        SET domicile_id = $1
+        WHERE username = $2;
+        ], [user.domicile_id, user.username])
     end
 
     def get_user_id(user)
@@ -103,7 +111,7 @@ module ShowMeMoney
       ],[username])
 
       user_data = result.first
-      
+
       if user_data
         build_user(user_data)
       else

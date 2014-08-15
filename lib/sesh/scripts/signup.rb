@@ -12,20 +12,20 @@ module ShowMeMoney
       end
 
       user = ShowMeMoney::User.new(params)
-      # binding.pry
       user.update_password(params['password'])
       ShowMeMoney.dbi.persist_user(user)
       user_id = ShowMeMoney.dbi.get_user_id(user)
       user.update_user_id(user_id)
-      # binding.pry
-      if params['domicile_id'] == nil
+
+      if params['domicile_id'].empty?
         domicile = ShowMeMoney.dbi.add_domicile
-        user.update_domicile_id(domicile.domicile_id)
+        user.update_domicile_id(domicile.domicile_id.to_i)
+        ShowMeMoney.dbi.update_domicile_id(user)
       else
         user.update_domicile_id(params['domicile_id'])
+        ShowMeMoney.dbi.update_domicile_id(user)
       end
 
-      # binding.pry
       {
         :success? => true,
         :session_id => user.user_id

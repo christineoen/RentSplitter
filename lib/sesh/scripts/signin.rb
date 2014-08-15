@@ -2,7 +2,7 @@ module ShowMeMoney
   class SignIn
     def self.run(params)
       if params['username'].empty? || params['password'].empty?
-        return {:success => false, :error => "Please fill out all input fields."}
+        return {:success? => false, :error => "Please fill out all input fields."}
       end
 
       user = ShowMeMoney.dbi.get_user_by_username(params['username'])
