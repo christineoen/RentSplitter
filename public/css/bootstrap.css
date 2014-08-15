@@ -40,7 +40,8 @@ html, body {
   height: 150px;
   clear:both;
   padding-top:20px;
-} 
+}
+
 article,
 aside,
 details,
@@ -3704,11 +3705,19 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     border-bottom-color: #ffffff;
   }
 }
+
+.nav-pills {
+  margin: 0 auto;
+  width: 100%;
+
+}
+
 .nav-pills > li {
   float: left;
 }
 .nav-pills > li > a {
   border-radius: 4px;
+  padding: 10px 35px;
 }
 .nav-pills > li + li {
   margin-left: 2px;
