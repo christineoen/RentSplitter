@@ -24,5 +24,10 @@ module ShowMeMoney
     def update_user_id(user_id)
       @user_id = user_id
     end
+
+    def update_domicile_id(domicile_id)
+      @domicile_id = domicile_id
+    end
+
   end
 end

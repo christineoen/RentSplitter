@@ -7,6 +7,13 @@ module ShowMeMoney
     def initialize
       @db = PG.connect(host: 'localhost', dbname: 'show_me_the_money')
 
+      domicile = %q[
+        CREATE TABLE IF NOT EXISTS domicile(
+          domicile_id SERIAL,
+          PRIMARY KEY ( domicile_id )
+          );]
+      @db.exec(domicile)
+
       users = %q[
         CREATE TABLE IF NOT EXISTS users(
           user_id SERIAL,
@@ -32,16 +39,6 @@ module ShowMeMoney
           PRIMARY KEY ( expense_id )
           );]
       @db.exec(expenses)
-
-      domicile = %q[
-        CREATE TABLE IF NOT EXISTS domicile(
-          domicile_id SERIAL,
-          rent integer,
-          month integer,
-          year integer,
-          PRIMARY KEY ( domicile_id )
-          );]
-      @db.exec(domicile)
 
       # TODO: Figure out rent and bills logic!!
 
@@ -131,13 +128,13 @@ module ShowMeMoney
       build_expense(result.first)
     end
 
-    def get_all_expenses(year, month, domicile)
+    def get_all_expenses(domicile_id, year, month)
       result = @db.exec(%q[
         SELECT * FROM expenses
-        WHERE year = $1
-        AND month = $2
-        AND domicile_id = $3;
-        ],[year, month, domicile.domicile_id])
+        WHERE domicile_id = $1
+        AND year = $2
+        AND month = $3;
+        ],[domicile_id, year, month])
 
       result.map {|row| build_expense(row)}
     end
@@ -149,21 +146,20 @@ module ShowMeMoney
     end
 
 
-    def add_domicile(rent, tenant)
-      result = @db.exec_params(%q[
-        INSERT INTO domicile (rent, tenant)
-        VALUES ($1, $2)
+    def add_domicile
+      result = @db.exec(%q[
+        INSERT INTO domicile DEFAULT VALUES
         RETURNING *;
-        ], [rent, tenant])
+        ])
       
       build_domicile(result.first)
     end
 
-    def get_domicile_id(user)
+    def get_domicile_id(user_id)
       result = @db.exec(%q[
         SELECT domicile_id FROM users
         WHERE user_id = $1
-        ],[user.user_id])
+        ],[user_id])
 
       return result
     end

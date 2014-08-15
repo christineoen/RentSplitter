@@ -35,10 +35,10 @@ end
 # end
 
 post '/signin' do
-  sign_in = RPS::SignIn.run(params)
+  sign_in = ShowMeMoney::SignIn.run(params)
   if sign_in[:success?]
     session['rent_session'] = sign_in[:session_id]
-    redirect to '/main'
+    redirect to "/main/#{Time.now.year}/#{Time.now.month}"
   else
     flash[:alert] = sign_in[:error]
     erb :index
@@ -46,21 +46,23 @@ post '/signin' do
 end
 
 post '/signup' do
-  sign_up = RPS::SignUp.run(params)
+  sign_up = ShowMeMoney::SignUp.run(params)
   if sign_up[:success?]
     session['rent_session'] = sign_up[:session_id]
-    redirect to '/main'
+    redirect to "/main/#{Time.now.year}/#{Time.now.month}"
   else
     flash[:alert] = sign_up[:error]
     erb :index
-  end 
+  end
 
 end
 
-get '/main' do
-  #get all expenses for domicile for current month and year selected
-  #get domicile info for current month and year selected
+get '/main/:year/:month' do
 
+  domicile_id = ShowMeMoney.dbi.get_domicile_id(session['rent_session'])
+  @current_expenses = ShowMeMoney.dbi.get_all_expenses(domicile_id, params['year'], params['month'])
+
+  erb :main
 end
 
 
