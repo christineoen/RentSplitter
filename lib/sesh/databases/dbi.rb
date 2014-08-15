@@ -49,14 +49,14 @@ module ShowMeMoney
     #### USERS ####
 
     def build_user(data)
-      ShowMeMoney::User.new(data['username'], data['password'])
+      ShowMeMoney::User.new(data['username'], data['display_name'], data['password'])
     end
 
     def persist_user(user)
       @db.exec_params(%q[
-        INSERT INTO users (username, password)
-        VALUES ($1, $2);
-      ], [user.username, user.password_digest])
+        INSERT INTO users (username, display_name, password)
+        VALUES ($1, $2, $3);
+      ], [user.username, user.display_name, user.password_digest])
     end
 
     def get_user_id(user)
@@ -65,7 +65,7 @@ module ShowMeMoney
         WHERE username = $1;
         ], [user.username])
 
-      return result
+      return result.first
     end
 
     def username_exists?(username)
@@ -161,7 +161,7 @@ module ShowMeMoney
         WHERE user_id = $1
         ],[user_id])
 
-      return result
+      return result.first
     end
 
     def get_domicile_users(domicile_id)
@@ -172,6 +172,19 @@ module ShowMeMoney
       
       result.map {|row| build_user(row)}
     end
+
+    # def domicile_id_exists?(domicile_id)
+    #   result = @db.exec(%q[
+    #     SELECT * FROM domicile
+    #     WHERE domicile_id = $1;
+    #   ], [domicile_id])
+
+    #   if result.count > 0
+    #     true
+    #   else
+    #     false
+    #   end
+    # end
 
   end
 

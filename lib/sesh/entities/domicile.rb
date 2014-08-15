@@ -7,8 +7,8 @@ module ShowMeMoney
       # @tenant = data[:tenant]
       # @year = data[:year]
       # @month = data[:month]
-      @name = data[:name]
-      @domicile_id = data[:domicile_id]
+      @name = data['name']
+      @domicile_id = data['domicile_id']
       @reallocation_hash = Hash.new(0)
     end
 

@@ -5,12 +5,12 @@ module ShowMeMoney
     attr_reader :username, :display_name, :password_digest, :user_id, :domicile_id, :rent
 
     def initialize(data = {})
-      @username = data[:username]
-      @display_name = data[:display_name]
-      @password_digest = data[:password_digest]
-      @user_id = data[:user_id]
-      @domicile_id = data[:domicile_id]
-      @rent = data[:rent]
+      @username = data['username']
+      @display_name = data['display_name']
+      @password_digest = data['password_digest']
+      @user_id = data['user_id']
+      @domicile_id = data['domicile_id']
+      @rent = data['rent']
     end
 
     def update_password(password)

@@ -2,6 +2,7 @@
 require 'sinatra'
 require "sinatra/json"
 require 'rack-flash'
+require 'pry-byebug'
 require_relative 'lib/rentSplitter.rb'
 
 
@@ -47,6 +48,7 @@ end
 
 post '/signup' do
   sign_up = ShowMeMoney::SignUp.run(params)
+  # binding.pry
   if sign_up[:success?]
     session['rent_session'] = sign_up[:session_id]
     redirect to "/main/#{Time.now.year}/#{Time.now.month}"
