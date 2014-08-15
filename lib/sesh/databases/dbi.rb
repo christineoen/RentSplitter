@@ -73,7 +73,7 @@ module ShowMeMoney
         WHERE username = $1;
         ], [user.username])
 
-      return result.first
+      return result.first['user_id'].to_i
     end
 
     def username_exists?(username)

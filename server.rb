@@ -61,6 +61,7 @@ end
 
 get '/main/:year/:month' do
   domicile_id = ShowMeMoney.dbi.get_domicile_id(session['rent_session'])
+
   @current_expenses = ShowMeMoney.dbi.get_all_expenses(domicile_id['domicile_id'].to_i, params['year'], params['month'])
 
   @domicile_users = ShowMeMoney.dbi.get_domicile_users(domicile_id['domicile_id'].to_i)
@@ -71,9 +72,9 @@ get '/main/:year/:month' do
 end
 
 post '/main/add-expense' do
-
   domicile_id = ShowMeMoney.dbi.get_domicile_id(session['rent_session'])
   params['domicile_id'] = domicile_id['domicile_id'].to_i
+
   ShowMeMoney.dbi.add_expense(params)
 
   redirect to "/main/#{Time.now.year}/#{Time.now.month}"
