@@ -70,7 +70,14 @@ get '/main/:year/:month' do
   erb :main
 end
 
+post '/main/add-expense' do
 
+  domicile_id = ShowMeMoney.dbi.get_domicile_id(session['rent_session'])
+  params['domicile_id'] = domicile_id['domicile_id'].to_i
+  ShowMeMoney.dbi.add_expense(params)
+
+  redirect to "/main/#{Time.now.year}/#{Time.now.month}"
+end
 
 
 get '/signout' do

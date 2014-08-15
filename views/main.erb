@@ -1,7 +1,7 @@
 
 
-
-  <ul class="nav nav-pills col-md-12">
+<div class="container">
+  <ul id="nav-pills" class="nav nav-pills">
     <li><a href="/main/2014/1">jan</a></li>
     <li><a href="/main/2014/2">feb</a></li>
     <li><a href="/main/2014/3">mar</a></li>
@@ -15,9 +15,7 @@
     <li><a href="/main/2014/11">nov</a></li>
     <li><a href="/main/2014/12">dec</a></li>
   </ul>
-
-  </br>
-  </br>
+</div>
   </br>
   </br>
   </br>
@@ -89,7 +87,7 @@
             <h4 class="modal-title" id="myModalLabel">Add Expense</h4>
           </div>
           <div class="modal-body">
-            <form class="form-horizontal">
+            <form method="post" action="/main/add-expense" class="form-horizontal">
             <fieldset>
 
             <!-- Form Name -->
@@ -116,7 +114,7 @@
             <div class="control-group">
               <label class="control-label" for="paid_by">Paid By</label>
               <div class="controls">
-                <input id="paid_by" name="paid_by" type="text" placeholder="Enter Username" class="input-xlarge">
+                <input id="paid_by" name="paid_by" type="text" placeholder="Enter User ID" class="input-xlarge">
                 
               </div>
             </div>
@@ -126,18 +124,18 @@
               <label class="control-label" for="month">Month</label>
               <div class="controls">
                 <select id="month" name="month" class="input-xlarge">
-                  <option>January</option>
-                  <option>February</option>
-                  <option>March</option>
-                  <option>April</option>
-                  <option>May</option>
-                  <option>June</option>
-                  <option>July</option>
-                  <option>August</option>
-                  <option>September</option>
-                  <option>October</option>
-                  <option>November</option>
-                  <option>December</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                  <option>9</option>
+                  <option>10</option>
+                  <option>11</option>
+                  <option>12</option>
                 </select>
               </div>
             </div>
@@ -159,12 +157,20 @@
             </div>
 
             </fieldset>
-            </form>
-          </div>
+
+
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
           </div>
+
+
+            </form>
+          </div>
+<!--           <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div> -->
         </div>
       </div>
     </div>

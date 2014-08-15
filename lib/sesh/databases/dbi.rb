@@ -134,12 +134,12 @@ module ShowMeMoney
       ShowMeMoney::Expense.new(data)
     end
 
-    def add_expense(type, amount, paid_by, month, year)
+    def add_expense(data)
       result = @db.exec_params(%q[
-        INSERT INTO expenses (type, amount, paid_by, month, year)
-        VALUES ($1, $2, $3, $4, $5)
+        INSERT INTO expenses (type, amount, paid_by, month, year, domicile_id)
+        VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING *;
-        ], [type, amount, paid_by, month, year])
+        ], [data['type'], data['amount'], data['paid_by'], data['month'], data['year'], data['domicile_id']])
 
       build_expense(result.first)
     end

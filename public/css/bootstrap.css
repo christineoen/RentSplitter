@@ -20,10 +20,6 @@ body {
 html, body {
   height: 100%;
 }
-/*.nav {
-  margin: 0 auto;
-  float:none;
-}*/
 
 #wrap {
   min-height: 100%;
@@ -3706,10 +3702,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 
-.nav-pills {
+#nav-pills {
   margin: 0 auto;
   width: 100%;
-
 }
 
 .nav-pills > li {
@@ -3717,7 +3712,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .nav-pills > li > a {
   border-radius: 4px;
-  padding: 10px 35px;
+  padding: 10px 25px;
 }
 .nav-pills > li + li {
   margin-left: 2px;
